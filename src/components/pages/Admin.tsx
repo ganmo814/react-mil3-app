@@ -60,7 +60,6 @@ export const SupDataGet: React.FC = () => {
   const deleteSup = async (id:any) => {
     const supsDocumentRef = doc(db, 'suppliers', id);
     await deleteDoc(supsDocumentRef);
-    window.location.reload();
   };
 
   return (

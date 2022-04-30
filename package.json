@@ -1,6 +1,7 @@
 {
   "name": "react-mil3-app",
   "version": "0.1.0",
+  "homepage": "./",
   "private": true,
   "dependencies": {
     "@chakra-ui/button": "^1.5.10",
@@ -55,7 +56,6 @@
       "last 1 chrome version",
       "last 1 firefox version",
       "last 1 safari version"
-    ],
-    "homepage": "./"
+    ]
   }
 }

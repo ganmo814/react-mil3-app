@@ -1,13 +1,18 @@
-import { memo, VFC } from "react";
-import { Wrap, WrapItem, Divider, Box, Flex, Stack, Button, ChakraProvider, VStack, Center, HStack, Text, Heading, Container, Stat, Img } from "@chakra-ui/react"
-import BgMovie from "../../movie/top_bg.mp4";
+import { memo, VFC, useCallback } from "react";
+import { Wrap, WrapItem, Divider, Box, Flex, Stack, Button, ChakraProvider, VStack, Center, Text, Heading, } from "@chakra-ui/react"
 import { BsLaptop } from "react-icons/bs"
 import { AiOutlineMoneyCollect, AiOutlineHome } from "react-icons/ai"
+import { FaWarehouse, FaHandsHelping } from "react-icons/fa"
+import { GiPlanetCore } from "react-icons/gi"
 import { Footer } from "../organisms/layouts/Footer";
 import { PhotosBar } from "../organisms/layouts/PhotosBar";
-
+import { useNavigate } from "react-router-dom"
 
 function HomeTop(){
+    const navigate = useNavigate();
+    const onClickPage1 = useCallback(() => navigate("/page1"), []);
+    const onClickPage2 = useCallback(() => navigate("/page2"), []);
+
     return(
         <div>
             <video autoPlay loop muted
@@ -19,7 +24,7 @@ function HomeTop(){
                 transform: "translate(-0%, -0%)",
                 zIndex: -1
             }}>
-                <source src={BgMovie} type="video/mp4" />
+                <source src={`${process.env.PUBLIC_URL}/movie/top_bg.mp4`} type="video/mp4" />
             </video>
             <Flex w="full" h="300px"
                 // justifyContent="center"
@@ -30,9 +35,9 @@ function HomeTop(){
                 <VStack m='3'>
                     <Text fontSize='xs' fontWeight='bold'>3分で終わる無料会員登録だけで<br />すぐにサービス利用開始可能です</Text>
                     <Text fontSize='xs'>住宅購入検討者様</Text>
-                    <Button margin={0} fontSize='xx-small' colorScheme='teal'>優良な住宅供給者を探す<br />START</Button>
+                    <Button onClick={onClickPage1} margin={0} fontSize='xx-small' colorScheme='teal'>優良な住宅供給者を探す<br />START</Button>
                     <Text fontSize='xs'>住宅供給者様</Text>
-                    <Button paddingLeft={2.5} paddingRight={2.5} margin={0} fontSize='xx-small' colorScheme='linkedin'>住宅供給者として登録する<br />START</Button>
+                    <Button onClick={onClickPage2} paddingLeft={2.5} paddingRight={2.5} margin={0} fontSize='xx-small' colorScheme='linkedin'>住宅供給者として登録する<br />START</Button>
                 </VStack>
             </Box>
             </Flex>
@@ -41,6 +46,7 @@ function HomeTop(){
 };
 
 function HomeMid1(){
+
     return(
         <>
         <div>
@@ -50,10 +56,10 @@ function HomeMid1(){
             <WrapItem>
                 <Center minW='xs' minH='100px'>
                     <VStack m={3}>
-                        <Box display='flex' justifyContent='center' alignItems='center' boxSize='80px' borderRadius='full' bgColor='teal.500' ><AiOutlineHome color="white" size="40px" /></Box>
+                        <Box display='flex' justifyContent='center' alignItems='center' boxSize='80px' borderRadius='full' bgColor='teal.500' ><FaWarehouse color="white" size="40px" /></Box>
                         <br />
                         <Heading fontSize="md">信頼ある事業者様のご紹介</Heading>
-                        <Text textAlign='center' fontSize="xs">顧客評価の可視化による信用の担保。<br />理想のマイホーム実現に<br />最適な事業者様を選択できます。</Text>
+                        <Text textAlign='center' fontSize="xs">顧客評価により事業者様の信用を可視化し、<br />理想のマイホーム実現に最適な事業者様を<br />全国35,000社の中から選択できます。</Text>
                     </VStack>
                 </Center>
             </WrapItem>
@@ -62,8 +68,8 @@ function HomeMid1(){
                     <VStack m={3}>
                         <Box display='flex' justifyContent='center' alignItems='center' boxSize='80px' borderRadius='full' bgColor='teal.500' ><AiOutlineMoneyCollect  color="white" size="40px" /></Box>
                         <br />
-                        <Heading fontSize="md">価格の透明性</Heading>
-                        <Text textAlign='center' fontSize="xs">これまで人生最大の買物であるにも関わらず<br />ブラックボックスとなっていた<br />戸建住宅価格をオープンにします。</Text>
+                        <Heading fontSize="md">価格の透明性・納得感</Heading>
+                        <Text textAlign='center' fontSize="xs">人生最大の買物であるのにブラックボックスと<br />なっていた戸建住宅価格をオープンにします。<br />オンライン対応により削減した費用を価格で還元します。</Text>
                     </VStack>
                 </Center>
             </WrapItem>
@@ -97,17 +103,17 @@ function HomeMid1(){
             <WrapItem>
             <Center minW='xs' minH='100px'>
                     <VStack m={3}>
-                        <Box display='flex' justifyContent='center' alignItems='center' boxSize='80px' borderRadius='full' bgColor='blue.500' ><AiOutlineMoneyCollect  color="white" size="40px" /></Box>
+                        <Box display='flex' justifyContent='center' alignItems='center' boxSize='80px' borderRadius='full' bgColor='blue.500' ><FaHandsHelping color="white" size="40px" /></Box>
                         <br />
-                        <Heading fontSize="md">営業資源の有効活用</Heading>
-                        <Text textAlign='center' fontSize="xs">確率の低い新規集客営業の削減、初期的な<br />ヒアリング業務を省略できる事により<br />成約に繋げる本質的な営業活動に注力可能です。</Text>
+                        <Heading fontSize="md">成約率の向上</Heading>
+                        <Text textAlign='center' fontSize="xs">確率の低い新規集客営業の削減、初期的な<br />ヒアリング業務を省略し、成約に繋げる<br />本質的な営業活動に注力可能です。</Text>
                     </VStack>
                 </Center>
             </WrapItem>
             <WrapItem>
             <Center minW='xs' minH='100px'>
                     <VStack m={3}>
-                        <Box display='flex' justifyContent='center' alignItems='center' boxSize='80px' borderRadius='full' bgColor='teal.500' ><BsLaptop color='white' size="40px" /></Box>
+                        <Box display='flex' justifyContent='center' alignItems='center' boxSize='80px' borderRadius='full' bgColor='blue.500' ><GiPlanetCore color='white' size="40px" /></Box>
                         <br />
                         <Heading fontSize="md">コアビジネス（家づくり）への集中</Heading>
                         <Text textAlign='center' fontSize="xs">人的資源の有効活用により、<br />競争力を高める品質面の改善等<br />家づくりに集中することができます。</Text>
@@ -135,6 +141,10 @@ function HomeMid2(){
 
 
 function HomeBot(){
+    const navigate = useNavigate();
+    const onClickPage1 = useCallback(() => navigate("/page1"), []);
+    const onClickPage2 = useCallback(() => navigate("/page2"), []);
+
     return(
         <div>
             <Stack
@@ -144,9 +154,9 @@ function HomeBot(){
             >
             <Text fontSize='sm'>3分で終わる無料会員登録だけですぐにサービス利用開始可能です</Text>
             <Flex>
-            <Button fontSize='sm' p={7} m={5} colorScheme='teal' variant='solid' borderRadius='35'>
+            <Button onClick={onClickPage1} fontSize='sm' p={7} m={5} colorScheme='teal' variant='solid' borderRadius='35'>
                 優良な住宅供給者を探す<br />START</Button>
-            <Button fontSize='sm' p={7} m={5} colorScheme='linkedin' variant='solid' borderRadius='35'>
+            <Button onClick={onClickPage2} fontSize='sm' p={7} m={5} colorScheme='linkedin' variant='solid' borderRadius='35'>
                 住宅供給者として登録する<br />START</Button>
             </Flex>
             </Stack>

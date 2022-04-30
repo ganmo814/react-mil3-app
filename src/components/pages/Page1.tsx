@@ -1,12 +1,13 @@
 import { memo, VFC } from "react";
+import SignUp from "../SignUp";
 import { Footer } from "../organisms/layouts/Footer";
+import SignUpRev from "../SignUpRev";
 
 export const Page1: VFC = memo(() => {
     return (
         <div>
-            <h1>Page1ページです</h1>
+            <SignUpRev />
             <Footer />
         </div>
-
     );
 });

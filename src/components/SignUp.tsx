@@ -1,24 +1,42 @@
-import React, { useState, useEffect } from "react";
-import { Flex, Heading, Input, Button, InputGroup, Stack, InputLeftElement, chakra, Box, Link, Avatar, FormControl, FormHelperText, InputRightElement } from "@chakra-ui/react";
-import { FaUserAlt, FaLock } from "react-icons/fa";
+import React, { useState } from "react";
+import { Flex, Heading, Input, Button, InputGroup, Stack, InputLeftElement, chakra, Box, Avatar, FormControl, FormHelperText, InputRightElement } from "@chakra-ui/react";
+import { FaLock, FaMailBulk } from "react-icons/fa";
 import { auth } from "../firebase"; 
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { Link, useNavigate } from 'react-router-dom';
 
-const CFaUserAlt = chakra(FaUserAlt);
 const CFaLock = chakra(FaLock);
+const CFaMailBulk = chakra(FaMailBulk);
 
 const SignUp: React.FC = (props: any) => {
   const [showPassword, setShowPassword] = useState(false);
   const handleShowClick = () => setShowPassword(!showPassword);
+  const navigate = useNavigate();
 
-  const [isLogin, setIsLogin] = useState(true);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const handleSubmit = (event: any) => {
+    event.preventDefault();
+    const { email, password } = event.target.elements;
+    signInWithEmailAndPassword(auth, email.value, password.value)
+    .then((user) => {
+      alert('ログイン成功=');
+      if(email.value === "admin@test.co.jp"){
+        navigate("/admin");        
+      } else {
+        navigate("/mypage");
+      }})
+    .catch((error) => {
+      alert(error.message)
+      })    
+  };
+  // const [isLogin, setIsLogin] = useState(true);
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
 
-//   useEffect(() => {
-//     auth.onAuthStateChanged((user)=>{
-//         user && props.history.push("/");
-//     });
-//     }, [props.history]);
+  // useEffect(() => {
+  //   auth.onAuthStateChanged((user)=>{
+  //       user && props.history.push("/mypage");
+  //   });
+  //   }, [props.history]);
 
   return (
     <Flex
@@ -35,12 +53,13 @@ const SignUp: React.FC = (props: any) => {
         justifyContent="center"
         alignItems="center"
       >
-        <Heading fontSize='x-large'>{isLogin ? "Login" : "Registration"}</Heading>
+        <Heading fontSize='x-large'>ログイン</Heading>
+        {/* {isLogin ? "Login" : "Registration"} */}
         <br />
         <Avatar bg="teal.500" />
         <Heading fontSize='lg' color="teal.400">Welcome</Heading>
         <Box minW={{ base: "90%", md: "468px" }}>
-          <form>
+          <form onSubmit={handleSubmit}>
             <Stack
               spacing={4}
               p="1rem"
@@ -51,12 +70,13 @@ const SignUp: React.FC = (props: any) => {
                 <InputGroup>
                   <InputLeftElement
                     pointerEvents="none"
-                    children={<CFaUserAlt color="gray.300" />}
+                    children={<CFaMailBulk color="gray.300" />}
                   />
-                  <Input type="email" placeholder="メールアドレス" value={email}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                    setEmail(e.target.value); 
-                    }}                 
+                  <Input name="email" type="email" placeholder="メールアドレス" 
+                    // value={email}
+                    // onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                    // setEmail(e.target.value); 
+                    // }}                 
                   />
                 </InputGroup>
               </FormControl>
@@ -68,12 +88,13 @@ const SignUp: React.FC = (props: any) => {
                     children={<CFaLock color="gray.300" />}
                   />
                   <Input
+                    name="password"
                     type={showPassword ? "text" : "password"}
                     placeholder="パスワード"
-                    value={password}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                        setPassword(e.target.value);
-                    }}
+                    // value={password}
+                    // onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                    //     setPassword(e.target.value);
+                    // }}
                   />
                   <InputRightElement width="4.5rem">
                     <Button h="1.75rem" size="sm" onClick={handleShowClick}>
@@ -82,7 +103,8 @@ const SignUp: React.FC = (props: any) => {
                   </InputRightElement>
                 </InputGroup>
                 <FormHelperText textAlign="right">
-                  <Link>パスワードを忘れた場合</Link>
+                  <br />
+                  {/* <Link>パスワードを忘れた場合</Link> */}
                 </FormHelperText>
               </FormControl>
               <Button
@@ -94,7 +116,7 @@ const SignUp: React.FC = (props: any) => {
                 // onClick={ isLogin ? async () => {
                 //     try {
                 //         await auth.signInWithEmailAndPassword(email, password);
-                //         props.history.push("/");
+                //         props.history.push("/mypage");
                 //     }   catch (error: any) {
                 //         alert(error.message);
                 //     }
@@ -108,7 +130,8 @@ const SignUp: React.FC = (props: any) => {
                 // }
                 // }
               >
-                {isLogin ? "Login" : "Register"}
+                Login
+                {/* {isLogin ? "Login" : "Register"} */}
               </Button>
             </Stack>
           </form>
@@ -116,7 +139,7 @@ const SignUp: React.FC = (props: any) => {
       </Stack>
       <Box fontSize='sm'>
         会員登録がまだの場合、{" "}
-        <Link color="teal.500" href="#">
+        <Link to="/page1" color="teal.500" >
           新規登録はこちらから
         </Link>
       </Box>

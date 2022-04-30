@@ -1,4 +1,4 @@
-import { Divider, Box, Flex, Heading, IconButton, useDisclosure } from "@chakra-ui/react";
+import { Text, Divider, Box, Flex, Heading, IconButton, useDisclosure } from "@chakra-ui/react";
 import { memo, useCallback, VFC } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { HamburgerIcon } from "@chakra-ui/icons"
@@ -23,13 +23,13 @@ export const Header: VFC = memo(() => {
                 justify="space-between"
                 padding={{ base: 4, md: 6}}
             >
-                <Heading as="h1" fontSize={{ base: "xl", md: "2xl"}}>SuMiKa</Heading>
+                <Heading as="h1" fontSize={{ base: "2xl", md: "3xl"}}>SuMiKa</Heading>
 
-            <Flex display={{ base: "none", md: "flex"}}> 
-                <Box pr={5}><Link to="/">Home</Link></Box>
-                <Box pr={5}><Link to="/page1">Page1</Link></Box>
-                <Box pr={5}><Link to="/page2">Page2</Link></Box>
-                <Box pr={2}><Link to="/login">Login</Link></Box>
+            <Flex display={{ base: "none", md: "flex"}} > 
+                <Box fontWeight="bold" display="flex" alignItems="end" pr={7}><Link to="/">トップページ</Link></Box>
+                <Box fontWeight="bold" display="flex" alignItems="end" textAlign="center" pr={7}><Link to="/page1">家を買いたい<br /><Text fontSize='xs'>(会員登録)</Text></Link></Box>
+                <Box fontWeight="bold" display="flex" alignItems="end" textAlign="center" pr={7}><Link to="/page2">家を売りたい<br /><Text fontSize='xs'>(法人登録)</Text></Link></Box>
+                <Box fontWeight="bold" display="flex" alignItems="end" pr={3}><Link to="/login">ログイン</Link></Box>
             </Flex>
             <IconButton 
                 aria-label="メニューボタン" 

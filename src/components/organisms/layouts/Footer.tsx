@@ -1,4 +1,4 @@
-import { Divider, Box, Center } from "@chakra-ui/react";
+import { Divider, Box } from "@chakra-ui/react";
 import { memo, VFC } from "react";
 
 export const Footer: VFC = memo(() => {

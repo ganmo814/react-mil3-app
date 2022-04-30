@@ -20,7 +20,6 @@ export const UsersDataGet: VFC = memo(() => {
       const deleteUser = async (id:any) => {
       const userDocumentRef = doc(db, 'users', id);
       await deleteDoc(userDocumentRef);
-      window.location.reload();
     };
 
     return (

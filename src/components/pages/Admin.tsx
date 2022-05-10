@@ -1,8 +1,9 @@
 import { memo, VFC, useState, useEffect } from 'react';
 import { db } from '../../firebase';
 import { collection, deleteDoc, doc, getDocs } from 'firebase/firestore';
-import { Button, Badge, Box, Flex, Heading, Image } from '@chakra-ui/react';
-import { StarIcon } from '@chakra-ui/icons';
+import { Button, Box, Flex, Heading, Table, Tbody, Tr, Td } from '@chakra-ui/react';
+// import { StarIcon } from '@chakra-ui/icons';
+import { Link } from 'react-router-dom';
 
 
 export const UsersDataGet: VFC = memo(() => {
@@ -25,15 +26,17 @@ export const UsersDataGet: VFC = memo(() => {
     return (
     <div>
         {users.map((user) => (
-        <Flex w="100%" display="flex" alignItems="center" ml={5} key={user.id}>
-          <Box w="60%" lineHeight="40px">
-            {user.name} {user.email}
-          </Box>
-
-          <Box display="flex" justifyContent="flex-end" >
-            <Button onClick={() => deleteUser(user.id)} size='sm' colorScheme='red' ml={5} >削除</Button>
-          </Box>
-        </Flex>
+            <Table key={user.id} bgColor={"white"} variant='simple'>
+              <Tbody>
+                <Tr>
+                  <Td fontWeight={'bold'} >{user.name}</Td>
+                  <Td>{user.email}</Td>
+                  <Td>
+                    <Button onClick={() => deleteUser(user.id)} size='sm' colorScheme='red' ml={5}>削除</Button>              
+                  </Td>
+                </Tr>
+              </Tbody>
+            </Table>
         ))}
     </div>
     )
@@ -42,10 +45,6 @@ export const UsersDataGet: VFC = memo(() => {
   
 export const SupDataGet: React.FC = () => {
   const[suppliers, setSuppliers] = useState([{id:"", name:"", postcode:"", address:""}]);
-  const property = {
-    reviewCount: 0,
-    rating: 0.0,
-  }
 
   useEffect(() => {
     const supsCollectionRef = collection(db,'suppliers');
@@ -63,68 +62,23 @@ export const SupDataGet: React.FC = () => {
 
   return (
 <>
-  <Box h='150px' display='flex' alignItems='center' bgColor='white' w='100%' borderWidth='1px' borderRadius='lg' overflow='hidden'>
-    <Image ml={4}  boxSize="60px"
-           fallbackSrc="https://via.placeholder.com/150"
-           alt="company icon" height='85px' width='85px' />
-    <Box p='6'>
-      <Box display='flex' alignItems='baseline'>
-        <Badge borderRadius='full' px='2' colorScheme='orange'>
-          新規
-        </Badge>
-        <Badge ml='5px' borderRadius='full' px='2' colorScheme='teal'>
-          
-        </Badge>
-        <Box
-          color='gray.500'
-          fontWeight='semibold'
-          letterSpacing='wide'
-          fontSize='xs'
-          textTransform='uppercase'
-          ml='2'
-        >
-        </Box>
-      </Box>
 
-      <Box
-        mt='1'
-        fontWeight='semibold'
-        as='h4'
-        lineHeight='tight'
-        isTruncated
-      >
-        {suppliers.map((supplier) => (
-        <div key={supplier.id}>{supplier.name}</div>
-        ))}
-      </Box>
-
-      <Box>
-        {suppliers.map((supplier) => (
-        <div key={supplier.id}>〒{supplier.postcode} {supplier.address}</div>
-        ))}
-        <Box as='span' color='gray.600' fontSize='sm'>
-        </Box>
-      </Box>
-
-      <Box display='flex' mt='2' alignItems='center'>
-        {Array(5)
-          .fill('')
-          .map((_, i) => (
-            <StarIcon
-              key={i}
-              color={i < property.rating ? 'yellow.400' : 'gray.300'}
-            />
-          ))}
-        <Box as='span' ml='2' color='gray.600' fontSize='sm'>
-            評価 {property.rating}／ 
-            {property.reviewCount} レビュー
-        </Box>
-      </Box>
-    </Box>
-    {suppliers.map((supplier) => (
-    <Box key={supplier.id} onClick={() => deleteSup(supplier.id)} w="16%" display="flex" justifyContent="flex-end" ><Button size='sm' colorScheme='red' ml={5} >削除</Button></Box>
-    ))}
-  </Box>
+  {suppliers.map((supplier) => (
+      <Table key={supplier.id} bgColor={"white"} variant='simple'>
+        <Tbody>
+          <Tr>
+            <Td fontWeight={'bold'} >{supplier.name}</Td>
+            <Td>〒{supplier.postcode} {supplier.address}</Td>
+            <Td>
+              <Link to={`detail/${supplier.id}`}>
+              <Button size='sm' colorScheme="facebook">詳細</Button>
+              </Link>
+              <Button onClick={() => deleteSup(supplier.id)} size='sm' colorScheme='red' ml={5}>削除</Button>              
+            </Td>
+          </Tr>
+        </Tbody>
+      </Table>
+  ))}
   </>
   );
 };

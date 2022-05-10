@@ -1,8 +1,10 @@
-import { Button, Avatar, Box, chakra, Flex, FormControl, Heading, Input, InputGroup, InputLeftElement, Stack } from '@chakra-ui/react';
+import { Button, Box, chakra, Flex, FormControl, Heading, Input, InputGroup, InputLeftElement, Stack } from '@chakra-ui/react';
 import { FaLock, FaBuilding, FaMailBulk, FaAddressCard } from "react-icons/fa";
 import { BsSignpost2Fill } from "react-icons/bs"
 import { collection, doc, setDoc } from 'firebase/firestore';
-import { db } from '../firebase';
+import { auth, db } from '../firebase';
+import { useNavigate } from 'react-router-dom';
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 
 const CFaLock = chakra(FaLock);
 const CFaBuilding = chakra(FaBuilding);
@@ -11,21 +13,33 @@ const CFaAddressCard = chakra(FaAddressCard);
 const CBsSignpost2Fill = chakra(BsSignpost2Fill);
 
 
-const InquiryForm = () => {
-    const handleSubmit = async (event:any) => {
-      event.preventDefault();
-      const { name, postcode, address, email, password } = event.target.elements;
-      const supDocumentRef = doc(collection(db, 'suppliers'));
-      await setDoc(supDocumentRef, {
+
+const InquiryForm: React.FC = (props: any) => {
+  const navigate = useNavigate();
+  const handleSubmit = (event:any) => {
+    event.preventDefault();
+    const { name, postcode, address, email, password } = event.target.elements;
+    const supDocumentRef = doc(collection(db, 'suppliers'));
+    createUserWithEmailAndPassword(auth, email.value, password.value)
+    .then((supplierCredential) => {
+      alert("登録を完了しました。");    
+      console.log(supplierCredential);
+      setDoc(supDocumentRef, {
         name: name.value,
         postcode: postcode.value,
         address: address.value,
         email: email.value,
-        password: password.value
+        password: password.value,
+        confirmed: false
       });
-      alert("仮登録を完了しました。登録されたアドレスに本登録に関するメールを送付しましたのでご確認下さい")
-    };
-  
+      navigate("/login");
+    })
+    .catch((error) => {
+      alert(error.message)
+      console.error(error)
+    })
+  };
+
       return (      
       <Flex
         flexDirection="column"
@@ -44,8 +58,8 @@ const InquiryForm = () => {
         >
           <Heading fontSize='x-large'>法 人 会 員 登 録</Heading>
           <br />
-          <Avatar bg="teal.500" />
-          <Heading fontSize='lg' color="teal.400">Welcome</Heading>
+          <Box display='flex' justifyContent='center' alignItems='center' boxSize='46px' borderRadius='full' bgColor='blue.500' ><FaBuilding color="white" size="30px" /></Box>
+          <Heading fontSize='lg' color="blue.400">Welcome</Heading>
           <Box minW={{ base: "90%", md: "468px" }}>
             <form onSubmit={handleSubmit}>
               <Stack
@@ -109,7 +123,7 @@ const InquiryForm = () => {
                     borderRadius={0}
                     type="submit"
                     variant="solid"
-                    colorScheme="teal"
+                    colorScheme="blue"
                     width="full"
                 >送 信</Button>
                 </div>

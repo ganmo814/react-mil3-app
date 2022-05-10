@@ -27,8 +27,8 @@ export const Header: VFC = memo(() => {
 
             <Flex display={{ base: "none", md: "flex"}} > 
                 <Box fontWeight="bold" display="flex" alignItems="end" pr={7}><Link to="/">トップページ</Link></Box>
-                <Box fontWeight="bold" display="flex" alignItems="end" textAlign="center" pr={7}><Link to="/page1">家を買いたい<br /><Text fontSize='xs'>(会員登録)</Text></Link></Box>
-                <Box fontWeight="bold" display="flex" alignItems="end" textAlign="center" pr={7}><Link to="/page2">家を売りたい<br /><Text fontSize='xs'>(法人登録)</Text></Link></Box>
+                <Box fontWeight="bold" display="flex" alignItems="end" textAlign="center" pr={7}><Link to="/page1">家を買いたい<br /><Text fontSize='xs'>(個人会員登録)</Text></Link></Box>
+                <Box fontWeight="bold" display="flex" alignItems="end" textAlign="center" pr={7}><Link to="/page2">家を売りたい<br /><Text fontSize='xs'>(法人会員登録)</Text></Link></Box>
                 <Box fontWeight="bold" display="flex" alignItems="end" pr={3}><Link to="/login">ログイン</Link></Box>
             </Flex>
             <IconButton 

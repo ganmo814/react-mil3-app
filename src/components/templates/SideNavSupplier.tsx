@@ -1,15 +1,14 @@
 import { Flex, Heading, Text, Image, Box } from "@chakra-ui/react";
-import { BsSearch } from "react-icons/bs";
+// import { BsSearch } from "react-icons/bs";
 import { RiDoorOpenLine } from "react-icons/ri";
-import { ImStarEmpty } from "react-icons/im";
+// import { ImStarEmpty } from "react-icons/im";
 import { Link, useNavigate } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import { auth } from "../../firebase";
-import { AiFillFastBackward } from "react-icons/ai";
+import { AiOutlineMail, AiFillFastBackward } from "react-icons/ai" 
 
-// import companyIcon from "../public/hogehoge.png";
 
-export default function SideNav() {
+export default function SideNavSupplier () {
   const navigate = useNavigate();
     const handleLogout = () => {
       signOut(auth);
@@ -33,7 +32,7 @@ export default function SideNav() {
           </Heading>
         </Flex>
         <Flex h="65vh" direction="column" justify="space-between">
-        <Link to="/mypage_user">
+        <Link to="/mypage_supplier">
           <Flex fontSize={{ base: "sm", md: "md"}} align="center">
             <Box display='flex' justifyContent='center' alignItems='center' bgColor="teal.500" boxSize="30px" borderRadius="md"><AiFillFastBackward color="white" /></Box>
             <Text ml="3">マイページトップ</Text>
@@ -45,7 +44,7 @@ export default function SideNav() {
             mb="5vh"
             direction="column"
           >
-        <Link to="/mypage_user/searchsup">
+        <Link to="/mypage_supplier/messagereceiver">
           <Flex
             fontSize={{ base: "sm", md: "md"}}
             align="center"
@@ -53,8 +52,8 @@ export default function SideNav() {
             m="-3"
             rounded="full"
           >
-            <Box display='flex' justifyContent='center' alignItems='center' bgColor="teal.500" boxSize="30px" borderRadius="md"><BsSearch color="white" /></Box>
-            <Text ml="3">事業者を探す</Text>
+            <Box display='flex' justifyContent='center' alignItems='center' bgColor="teal.500" boxSize="30px" borderRadius="md"><AiOutlineMail color="white" /></Box>
+            <Text ml="3">メールを確認する</Text>
           </Flex>
         </Link>
         </Flex>

@@ -18,7 +18,7 @@ const SignUpRev: React.FC = (props: any) => {
     const userDocumentRef = doc(collection(db, 'users'));
     createUserWithEmailAndPassword(auth, email.value, password.value)
     .then((userCredential) => {
-      alert("登録が完了しました！");
+      alert("登録が完了しました。");
       console.log('user created');
       console.log(userCredential); 
       setDoc(userDocumentRef, {
